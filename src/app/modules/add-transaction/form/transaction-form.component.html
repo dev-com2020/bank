@@ -1,0 +1,40 @@
+<div class="card mt-3">
+    <div class="card-body">
+        <form [formGroup]="transactionForm" (ngSubmit)="onSubmit()">
+            <div class="form-group">
+                <label class="col-md-4">From Account</label>
+                <input disabled type="number" class="form-control" formControlName="fromAccount" #fromAccount [(ngModel)]="userService.saldo"/>
+                <div *ngIf="transactionForm.controls['fromAccount'].errors?.debitLimit"
+                     class="alert alert-danger">
+                        Debit limit will be 
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-md-4">To Account</label>
+                <input type="title" class="form-control" formControlName="toAccount" #toAccount/>
+                <div *ngIf="transactionForm.controls['toAccount'].invalid && (transactionForm.controls['toAccount'].dirty || transactionForm.controls['toAccount'].touched)"
+                     class="alert alert-danger">
+                    <div *ngIf="transactionForm.controls['toAccount'].errors.required">
+                        Recipent is required.
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-md-4">Amount</label>
+                <input type="number" class="form-control" formControlName="amount" #amount/>
+                <div *ngIf="transactionForm.controls['amount'].invalid && (transactionForm.controls['amount'].dirty || transactionForm.controls['amount'].touched)"
+                     class="alert alert-danger">
+                    <div *ngIf="transactionForm.controls['amount'].errors.required">
+                        Amount is required.
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <button type="submit"
+                        class="btn btn-primary mr-1"
+                        [disabled]="transactionForm?.pristine || transactionForm?.invalid">Submit
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
